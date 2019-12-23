@@ -1,0 +1,15 @@
+{
+    "name": "saas/crawl_plugin",
+    "description": "122抓取数据插件",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "ext-json"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gov\\": "src/"
+        }
+    }
+}
