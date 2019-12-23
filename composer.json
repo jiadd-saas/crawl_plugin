@@ -1,6 +1,6 @@
 {
-    "name": "saas/crawl_plugin",
-    "description": "122抓取数据插件",
+    "name": "jiadd/crawl_plugin",
+    "description": "插件",
     "type": "library",
     "license": "MIT",
     "minimum-stability": "dev",
