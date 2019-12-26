@@ -15,13 +15,15 @@ class DrivingGov extends GovAbstract
 {
     /**
      * DrivingGov constructor.
+     * @param string $url python请求地址
      * @param string $account 账户
      * @param string $password 密码
      * @param string $certificate 数字证书
      * @param string $province 省份 如：北京市、河北省，GovConfig::LOGIN_122_URL
      */
-    public function __construct($account = '', $password = '', $certificate = '', $province = '')
+    public function __construct($url = '', $account = '', $password = '', $certificate = '', $province = '')
     {
+        $this->requestUrl = $url;
         $this->account = $account;
         $this->password = $password;
         $this->certificate = $certificate;
@@ -39,7 +41,7 @@ class DrivingGov extends GovAbstract
     public function drivingLogin($params)
     {
         //python服务器的地址
-        $url = $this->buildUrl($params['url']) . GovConfig::DRIVING_LOGIN;
+        $url = $this->buildUrl() . GovConfig::DRIVING_LOGIN;
 
         $data = $this->loginBuildParams([
             'school_name' => $params['driving_name'],
@@ -65,7 +67,7 @@ class DrivingGov extends GovAbstract
     public function autoLogin($params = [])
     {
         //python服务器的地址
-        $url = $this->buildUrl($params['url']) . GovConfig::AUTO_LOGIN;
+        $url = $this->buildUrl() . GovConfig::AUTO_LOGIN;
 
         $data = $this->loginBuildParams([
             'school_name' => $params['driving_name'],
@@ -109,20 +111,22 @@ class DrivingGov extends GovAbstract
     {
         //python服务器的地址
 
-        $url = $this->buildUrl($params['url']) . GovConfig::SYNC_EXAM_PLAN_EXCEL;
+        $url = $this->buildUrl() . GovConfig::SYNC_EXAM_PLAN_EXCEL;
 
-        $data = $this->buildParams([
+        $data = [
             'ykrqstart' => $params['start_date'],
             'ykrqend' => $params['end_date'],
-            'downtype' => $params['down_type'],
-            'kskm' => $params['subject'],
-            'kscx' => $params['car_sort'],
-            'ksdd' => $params['site_id'],
-            'xm' => $params['student_name'],
-            'sfzmhm' => $params['id_card']
-        ]);
+            'downtype' => $params['down_type']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+        isset($params['car_sort']) && $data['kscx'] = $params['car_sort'];
+        isset($params['site_id']) && $data['ksdd'] = $params['site_id'];
+        isset($params['student_name']) && $data['xm'] = $params['student_name'];
+        isset($params['id_card']) && $data['sfzmhm'] = $params['id_card'];
 
-        return $this->call($url, $data);
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
     }
 
     /**
@@ -137,21 +141,23 @@ class DrivingGov extends GovAbstract
     {
         //python服务器的地址
 
-        $url = $this->buildUrl($params['url']) . GovConfig::SYNC_EXAM_PLAN_SIMPLE;
+        $url = $this->buildUrl() . GovConfig::SYNC_EXAM_PLAN_SIMPLE;
 
-        $data = $this->buildParams([
+        $data = [
             'ykrqstart' => $params['start_date'],
             'ykrqend' => $params['end_date'],
-            'kskm' => $params['subject'],
-            'kscx' => $params['car_sort'],
-            'ksdd' => $params['site_id'],
-            'xm' => $params['student_name'],
-            'sfzmhm' => $params['id_card'],
-            'page' => $params['page'],
-            'size' => $params['size']
-        ]);
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+        isset($params['car_sort']) && $data['kscx'] = $params['car_sort'];
+        isset($params['site_id']) && $data['ksdd'] = $params['site_id'];
+        isset($params['student_name']) && $data['xm'] = $params['student_name'];
+        isset($params['id_card']) && $data['sfzmhm'] = $params['id_card'];
+        isset($params['page']) && $data['page'] = $params['page'];
+        isset($params['size']) && $data['size'] = $params['size'];
 
-        return $this->call($url, $data);
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
     }
 
     /**
@@ -166,7 +172,7 @@ class DrivingGov extends GovAbstract
     {
         //python服务器的地址
 
-        $url = $this->buildUrl($params['url']) . GovConfig::SYNC_EXAM_PLAN_TABLE;
+        $url = $this->buildUrl() . GovConfig::SYNC_EXAM_PLAN_TABLE;
 
         $data = $this->buildParams([
             'start_date' => $params['start_date'],
@@ -187,20 +193,22 @@ class DrivingGov extends GovAbstract
     public function syncDrivingExamScoreExcel($params)
     {
         //python服务器的地址
-        $url = $this->buildUrl($params['url']) . GovConfig::SYNC_DRIVING_EXAM_SCORE_EXCEL;
+        $url = $this->buildUrl() . GovConfig::SYNC_DRIVING_EXAM_SCORE_EXCEL;
 
-        $data = $this->buildParams([
+        $data = [
             'ksrqstart' => $params['start_date'],
             'ksrqend' => $params['end_date'],
-            'downtype' => $params['down_type'],
-            'kskm' => $params['subject'],
-            'kscx' => $params['car_sort'],
-            'ksdd' => $params['site_id'],
-            'xm' => $params['student_name'],
-            'sfzmhm' => $params['id_card']
-        ]);
+            'downtype' => $params['down_type']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+        isset($params['car_sort']) && $data['kscx'] = $params['car_sort'];
+        isset($params['site_id']) && $data['ksdd'] = $params['site_id'];
+        isset($params['student_name']) && $data['xm'] = $params['student_name'];
+        isset($params['id_card']) && $data['sfzmhm'] = $params['id_card'];
 
-        return $this->call($url, $data);
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
     }
 
     /**
@@ -214,17 +222,41 @@ class DrivingGov extends GovAbstract
     public function syncDrivingExamScoreSimple($params)
     {
         //python服务器的地址
-        $url = $this->buildUrl($params['url']) . GovConfig::SYNC_DRIVING_EXAM_SCORE_SIMPLE;
+        $url = $this->buildUrl() . GovConfig::SYNC_DRIVING_EXAM_SCORE_SIMPLE;
+
+        $data = [
+            'ksrqstart' => $params['start_date'],
+            'ksrqend' => $params['end_date']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+        isset($params['car_sort']) && $data['kscx'] = $params['car_sort'];
+        isset($params['site_id']) && $data['ksdd'] = $params['site_id'];
+        isset($params['student_name']) && $data['xm'] = $params['student_name'];
+        isset($params['id_card']) && $data['sfzmhm'] = $params['id_card'];
+        isset($params['page']) && $data['page'] = $params['page'];
+        isset($params['size']) && $data['size'] = $params['size'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 同步考试成绩-数据库
+     * @param $params
+     * @return bool
+     * @throws GovException
+     * @author: renyuchong
+     * Date: 2019-12-24
+     */
+    public function syncDrivingExamScoreTable($params)
+    {
+        //python服务器的地址
+        $url = $this->buildUrl() . GovConfig::SYNC_DRIVING_EXAM_SCORE_TABLE;
 
         $data = $this->buildParams([
-            'ksrqstart' => $params['start_date'],
-            'ksrqend' => $params['end_date'],
-            'downtype' => $params['down_type'],
-            'kskm' => $params['subject'],
-            'kscx' => $params['car_sort'],
-            'ksdd' => $params['site_id'],
-            'xm' => $params['student_name'],
-            'sfzmhm' => $params['id_card']
+            'start_date' => $params['start_date'],
+            'end_date' => $params['end_date']
         ]);
 
         return $this->call($url, $data);
@@ -239,7 +271,7 @@ class DrivingGov extends GovAbstract
      */
     public function getAliToken($params)
     {
-        $url = $this->buildUrl($params['url']) . GovConfig::GET_ALITOKEN;
+        $url = $this->buildUrl() . GovConfig::GET_ALITOKEN;
 
         $data = [
             'url' => GovConfig::URL_122[$this->province],
@@ -259,7 +291,7 @@ class DrivingGov extends GovAbstract
      */
     public function getCaptchaType($params)
     {
-        $url = $this->buildUrl($params['url']) . GovConfig::GET_CAPTCHA_TYPE;
+        $url = $this->buildUrl() . GovConfig::GET_CAPTCHA_TYPE;
 
         $data = [
             'url' => GovConfig::URL_122[$this->province],
@@ -280,7 +312,7 @@ class DrivingGov extends GovAbstract
      */
     public function getCaptchaCountImg($params)
     {
-        $url = $this->buildUrl($params['url']) . GovConfig::CAPTCHA_COUNT_IMG;
+        $url = $this->buildUrl() . GovConfig::CAPTCHA_COUNT_IMG;
 
         $data = [
             'url' => GovConfig::URL_122[$this->province],
@@ -300,7 +332,7 @@ class DrivingGov extends GovAbstract
      */
     public function getCaptchaGifImg($params)
     {
-        $url = $this->buildUrl($params['url']) . GovConfig::CAPTCHA_GIF_IMG;
+        $url = $this->buildUrl() . GovConfig::CAPTCHA_GIF_IMG;
 
         $data = [
             'url' => GovConfig::URL_122[$this->province],

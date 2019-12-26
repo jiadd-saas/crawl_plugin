@@ -37,6 +37,12 @@ abstract class GovAbstract
     protected $province;
 
     /**
+     * 请求python地址url
+     * @var string
+     */
+    protected $requestUrl;
+
+    /**
      * 登录公用的参数
      * @param $params
      * @return array
@@ -69,9 +75,9 @@ abstract class GovAbstract
         ], $params);
     }
 
-    protected function buildUrl($url)
+    protected function buildUrl()
     {
-        return $url . '/';
+        return $this->requestUrl . '/';
     }
 
     /**
@@ -86,6 +92,20 @@ abstract class GovAbstract
         return array_merge([
             'url' => GovConfig::URL_122[$this->province],
             'username' => $this->account,
+            'password' => $this->password,
+        ], $params);
+    }
+
+    /**
+     * 学员请求绑定参数
+     * @param $params
+     * @return array
+     */
+    protected function studentBuildParams($params)
+    {
+        return array_merge([
+            'url' => GovConfig::URL_122[$this->province],
+            'account' => $this->account,
             'password' => $this->password,
         ], $params);
     }

@@ -15,12 +15,14 @@ class StudentGov extends GovAbstract
 {
     /**
      * DrivingGov constructor.
+     * @param string $url python请求地址
      * @param string $account 账户
      * @param string $password 密码
      * @param string $province 省份 如：北京市、河北省，GovConfig::LOGIN_122_URL
      */
-    public function __construct($account = '', $password = '', $province = '')
+    public function __construct($url = '',$account = '', $password = '', $province = '')
     {
+        $this->requestUrl = $url;
         $this->account = $account;
         $this->password = $password;
         $this->province = $province;
@@ -37,7 +39,7 @@ class StudentGov extends GovAbstract
     public function studentLogin($params)
     {
         //python服务器的地址
-        $url = $this->buildUrl($params['url']) . GovConfig::STUDENT_LOGIN;
+        $url = $this->buildUrl() . GovConfig::STUDENT_LOGIN;
 
         $data = $this->studentLoginBuildParams([
             'student_name' => $params['student_name'],
@@ -64,7 +66,7 @@ class StudentGov extends GovAbstract
     public function autoLogin($params = [])
     {
         //python服务器的地址
-        $url = $this->buildUrl($params['url']) . GovConfig::AUTO_LOGIN;
+        $url = $this->buildUrl() . GovConfig::AUTO_LOGIN;
 
         $data = $this->studentLoginBuildParams([
             'usertype' => 2,    //1驾校 2学员
@@ -94,5 +96,65 @@ class StudentGov extends GovAbstract
         }
 
         return $json;
+    }
+
+    /**
+     * 学员查询考试成绩
+     * @param array $params
+     * @return bool
+     * @throws GovException
+     */
+    public function getStudentExamScore($params = [])
+    {
+        //python服务器的地址
+        $url = $this->buildUrl() . GovConfig::STUDENT_EXAM_SCORE;
+
+        $data = $this->studentBuildParams([]);
+
+        return $this->call($url, $data);
+    }
+
+    /**
+     * 学员网办进度查询
+     * @param array $params
+     * User: renyuchong
+     * Date: 2019-12-24 15:45
+     * @return bool
+     * @throws GovException
+     */
+    public function getStudentNetworkSpeed($params = [])
+    {
+        //python服务器的地址
+        $url = $this->buildUrl() . GovConfig::STUDENT_NETWORK_SPEED;
+
+        $data = [];
+        isset($params['start_date']) && $data['startTime'] = $params['start_date'];
+        isset($params['end_date']) && $data['endTime'] = $params['end_date'];
+        isset($params['serial_number']) && $data['lsh'] = $params['serial_number'];
+        isset($params['network_serial_number']) && $data['wwlsh'] = $params['network_serial_number'];
+
+        $postData = $this->studentBuildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 学员网办进度详情查询
+     * @param array $params
+     * User: renyuchong
+     * Date: 2019-12-24 15:50
+     * @return bool
+     * @throws GovException
+     */
+    public function getStudentNetworkSpeedDetail($params = [])
+    {
+        //python服务器的地址
+        $url = $this->buildUrl() . GovConfig::STUDENT_NETWORK_SPEED_DETAIL;
+
+        $data = $this->studentBuildParams([
+            'wwlsh' => $params['network_serial_number'],
+        ]);
+
+        return $this->call($url, $data);
     }
 }

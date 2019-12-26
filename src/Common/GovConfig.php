@@ -32,6 +32,9 @@ class GovConfig
     //查询考试成绩-信息简化版
     const SYNC_DRIVING_EXAM_SCORE_SIMPLE = '122API/drvcjcx';
 
+    //同步考试成绩-查表的数据
+    const SYNC_DRIVING_EXAM_SCORE_TABLE = '122API/get_school_performance';
+
     //获取alitoken
     const GET_ALITOKEN = '122API/alitoken';
 
@@ -43,6 +46,15 @@ class GovConfig
 
     //GIF验证码
     const CAPTCHA_GIF_IMG = '122API/get_captcha_gif_img';
+
+    //学员查询考试成绩
+    const STUDENT_EXAM_SCORE = '122API/stucjcx';
+
+    //学员网办进度
+    const STUDENT_NETWORK_SPEED = '122API/student/query_network_progress';
+
+    //学员网办进度详情
+    const STUDENT_NETWORK_SPEED_DETAIL = '122API/student/query_network_progress';
 
     //122的身份登录地址
     const URL_122 = [
