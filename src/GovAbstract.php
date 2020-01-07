@@ -8,39 +8,17 @@
 
 namespace Gov;
 
-use Gov\Common\GovConfig;
-
 abstract class GovAbstract
 {
     /**
-     * 账号
-     * @var string
-     */
-    protected $account;
-
-    /**
-     * 密码
-     * @var string
-     */
-    protected $password;
-
-    /**
-     * 数字证书
-     * @var string
-     */
-    protected $certificate;
-
-    /**
-     * 根据省份 获取 服务器请求数据的url
-     * @var string
-     */
-    protected $province;
-
-    /**
-     * 请求python地址url
      * @var string
      */
     protected $requestUrl;
+
+    /**
+     * @var Account
+     */
+    protected $account;
 
     /**
      * 登录公用的参数
@@ -52,10 +30,10 @@ abstract class GovAbstract
     protected function loginBuildParams($params)
     {
         return array_merge([
-            'url' => GovConfig::URL_122[$this->province],
-            'szzsid' => $this->certificate,
-            'username' => $this->account,
-            'password' => $this->password,
+            'url'       => $this->account->basicUrl,
+            'szzsid'    => $this->account->cert,
+            'username'  => $this->account->username,
+            'password'  => $this->account->password,
         ], $params);
     }
 
@@ -69,15 +47,15 @@ abstract class GovAbstract
     protected function buildParams($params)
     {
         return array_merge([
-            'account' => $this->account,
-            'school_szkey' => $this->certificate,
-            'url' => GovConfig::URL_122[$this->province],
+            'url'           => $this->account->basicUrl,
+            'account'       => $this->account->username,
+            'school_szkey'  => $this->account->cert,
         ], $params);
     }
 
-    protected function buildUrl()
+    public function buildUrl($url)
     {
-        return $this->requestUrl . '/';
+        return rtrim($this->requestUrl, '/') . '/' . $url;
     }
 
     /**
@@ -90,9 +68,9 @@ abstract class GovAbstract
     protected function studentLoginBuildParams($params)
     {
         return array_merge([
-            'url' => GovConfig::URL_122[$this->province],
-            'username' => $this->account,
-            'password' => $this->password,
+            'url'       => $this->account->basicUrl,
+            'username'  => $this->account->username,
+            'password'  => $this->account->password,
         ], $params);
     }
 
@@ -104,9 +82,9 @@ abstract class GovAbstract
     protected function studentBuildParams($params)
     {
         return array_merge([
-            'url' => GovConfig::URL_122[$this->province],
-            'account' => $this->account,
-            'password' => $this->password,
+            'url'       => $this->account->basicUrl,
+            'account'   => $this->account->username,
+            'password'  => $this->account->password,
         ], $params);
     }
 }

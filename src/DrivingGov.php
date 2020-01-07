@@ -13,21 +13,37 @@ use Gov\Exception\GovException;
 
 class DrivingGov extends GovAbstract
 {
+
     /**
      * DrivingGov constructor.
-     * @param string $url python请求地址
-     * @param string $account 账户
-     * @param string $password 密码
-     * @param string $certificate 数字证书
-     * @param string $province 省份 如：北京市、河北省，GovConfig::LOGIN_122_URL
+     * @param $url
+     * @param array $account
      */
-    public function __construct($url = '', $account = '', $password = '', $certificate = '', $province = '')
+    public function __construct($url, $account = [])
     {
         $this->requestUrl = $url;
-        $this->account = $account;
-        $this->password = $password;
-        $this->certificate = $certificate;
-        $this->province = $province;
+        $account && $this->account = new Account($account);
+    }
+
+    /**
+     * @author Haohuang
+     * @email  huanghao1054@gmail.com
+     * @since   2020/1/7
+     * @param $account
+     */
+    public function setAccount($account)
+    {
+        $this->account = new Account($account);
+    }
+
+    /**
+     * @author Haohuang
+     * @email  huanghao1054@gmail.com
+     * @since   2020/1/7
+     */
+    public function getAccount()
+    {
+        return $this->account;
     }
 
     /**
@@ -40,8 +56,7 @@ class DrivingGov extends GovAbstract
      */
     public function drivingLogin($params)
     {
-        //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::DRIVING_LOGIN;
+        $url = $this->buildUrl(GovConfig::DRIVING_LOGIN);
 
         $data = $this->loginBuildParams([
             'school_name' => $params['driving_name'],
@@ -66,8 +81,7 @@ class DrivingGov extends GovAbstract
      */
     public function autoLogin($params = [])
     {
-        //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::AUTO_LOGIN;
+        $url = $this->buildUrl(GovConfig::AUTO_LOGIN);
 
         $data = $this->loginBuildParams([
             'school_name' => $params['driving_name'],
@@ -82,7 +96,6 @@ class DrivingGov extends GovAbstract
      * @param $params
      * @return bool
      * @throws GovException
-     * @throws \Exception
      * @author: renyuchong
      * Date: 2019-12-18
      */
@@ -109,9 +122,7 @@ class DrivingGov extends GovAbstract
      */
     public function syncExamPlanExcel($params)
     {
-        //python服务器的地址
-
-        $url = $this->buildUrl() . GovConfig::SYNC_EXAM_PLAN_EXCEL;
+        $url = $this->buildUrl(GovConfig::SYNC_EXAM_PLAN_EXCEL);
 
         $data = [
             'ykrqstart' => $params['start_date'],
@@ -139,9 +150,7 @@ class DrivingGov extends GovAbstract
      */
     public function syncExamPlanSimple($params)
     {
-        //python服务器的地址
-
-        $url = $this->buildUrl() . GovConfig::SYNC_EXAM_PLAN_SIMPLE;
+        $url = $this->buildUrl(GovConfig::SYNC_EXAM_PLAN_SIMPLE);
 
         $data = [
             'ykrqstart' => $params['start_date'],
@@ -170,9 +179,7 @@ class DrivingGov extends GovAbstract
      */
     public function syncExamPlanTable($params)
     {
-        //python服务器的地址
-
-        $url = $this->buildUrl() . GovConfig::SYNC_EXAM_PLAN_TABLE;
+        $url = $this->buildUrl( GovConfig::SYNC_EXAM_PLAN_TABLE );
 
         $data = $this->buildParams([
             'start_date' => $params['start_date'],
@@ -192,8 +199,7 @@ class DrivingGov extends GovAbstract
      */
     public function syncDrivingExamScoreExcel($params)
     {
-        //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::SYNC_DRIVING_EXAM_SCORE_EXCEL;
+        $url = $this->buildUrl( GovConfig::SYNC_DRIVING_EXAM_SCORE_EXCEL );
 
         $data = [
             'ksrqstart' => $params['start_date'],
@@ -221,8 +227,7 @@ class DrivingGov extends GovAbstract
      */
     public function syncDrivingExamScoreSimple($params)
     {
-        //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::SYNC_DRIVING_EXAM_SCORE_SIMPLE;
+        $url = $this->buildUrl( GovConfig::SYNC_DRIVING_EXAM_SCORE_SIMPLE );
 
         $data = [
             'ksrqstart' => $params['start_date'],
@@ -252,7 +257,7 @@ class DrivingGov extends GovAbstract
     public function syncDrivingExamScoreTable($params)
     {
         //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::SYNC_DRIVING_EXAM_SCORE_TABLE;
+        $url = $this->buildUrl( GovConfig::SYNC_DRIVING_EXAM_SCORE_TABLE );
 
         $data = $this->buildParams([
             'start_date' => $params['start_date'],
@@ -271,11 +276,11 @@ class DrivingGov extends GovAbstract
      */
     public function getAliToken($params)
     {
-        $url = $this->buildUrl() . GovConfig::GET_ALITOKEN;
+        $url = $this->buildUrl( GovConfig::GET_ALITOKEN );
 
         $data = [
-            'url' => GovConfig::URL_122[$this->province],
-            'usertype' => $params['user_type']
+            'url'       => $this->account->basicUrl,
+            'usertype'  => $params['user_type']
         ];
 
         return $this->call($url, $data);
@@ -291,11 +296,11 @@ class DrivingGov extends GovAbstract
      */
     public function getCaptchaType($params)
     {
-        $url = $this->buildUrl() . GovConfig::GET_CAPTCHA_TYPE;
+        $url = $this->buildUrl( GovConfig::GET_CAPTCHA_TYPE );
 
         $data = [
-            'url' => GovConfig::URL_122[$this->province],
-            'cookies' => $params['cookies'],
+            'url'       => $this->account->basicUrl,
+            'cookies'   => $params['cookies'],
             'checktype' => GovConfig::CHECK_TYPE
         ];
 
@@ -312,13 +317,11 @@ class DrivingGov extends GovAbstract
      */
     public function getCaptchaCountImg($params)
     {
-        $url = $this->buildUrl() . GovConfig::CAPTCHA_COUNT_IMG;
-
+        $url = $this->buildUrl( GovConfig::CAPTCHA_COUNT_IMG );
         $data = [
-            'url' => GovConfig::URL_122[$this->province],
-            'cookies' => $params['cookies']
+            'url'       => $this->account->basicUrl,
+            'cookies'   => $params['cookies']
         ];
-
         return $this->call($url, $data);
     }
 
@@ -332,14 +335,13 @@ class DrivingGov extends GovAbstract
      */
     public function getCaptchaGifImg($params)
     {
-        $url = $this->buildUrl() . GovConfig::CAPTCHA_GIF_IMG;
-
+        $url = $this->buildUrl( GovConfig::CAPTCHA_GIF_IMG );
         $data = [
-            'url' => GovConfig::URL_122[$this->province],
-            'cookies' => $params['cookies']
+            'url'       => $this->account->basicUrl,
+            'cookies'   => $params['cookies']
         ];
-
         return $this->call($url, $data);
     }
+
 
 }
