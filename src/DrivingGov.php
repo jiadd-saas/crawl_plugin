@@ -23,6 +23,7 @@ class DrivingGov extends GovAbstract
     {
         $this->requestUrl = $url;
         $account && $this->account = new Account($account);
+        return $this;
     }
 
     /**
@@ -34,6 +35,7 @@ class DrivingGov extends GovAbstract
     public function setAccount($account)
     {
         $this->account = new Account($account);
+        return $this;
     }
 
     /**
