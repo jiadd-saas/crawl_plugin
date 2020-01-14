@@ -346,6 +346,26 @@ class DrivingGov extends GovAbstract
     }
 
     /**
+     * 驾校考试场地查询
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-01-14 15:49
+     * @return bool
+     * @throws GovException
+     */
+    public function getSchoolExamSite($params)
+    {
+        $url = $this->buildUrl( GovConfig::SCHOOL_EXAM_SITE );
+
+        $data = [];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
      * 打印注册申请表
      * @param $params
      * User: renyuchong

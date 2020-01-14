@@ -73,4 +73,7 @@ class GovConfig
 
     //获取验证码图片类型的固定值，目前是固定的。以后122换了，需要修改
     const CHECK_TYPE = 'xThbIYTTWUEbRysf';
+
+    //驾校考试场地查询
+    const SCHOOL_EXAM_SITE = '122API/drvksdd';
 }
