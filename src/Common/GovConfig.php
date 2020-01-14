@@ -56,6 +56,21 @@ class GovConfig
     //学员网办进度详情
     const STUDENT_NETWORK_SPEED_DETAIL = '122API/student/query_network_progress';
 
+    //预录入-注册申请表
+    const PRE_REGISTER_PDF = '122API/slnewregpdf';
+
+    //预录入-检查身份证
+    const PRE_CHECK_ID_CARD = '122API/slsfzmhm';
+
+    //预录入-保存受理信息
+    const SAVE_PRE_ENTRY_INFO = '122API/slsavexx';
+
+    //预录入-行政区号
+    const PRE_AREA_CODE = '122API/ydxzqh';
+
+    //预录入-驾驶证申请表
+    const PRE_DRIVER_LICENSE_PDF = '122API/sldrvpdf';
+
     //122的身份登录地址
     const URL_122 = [
         '北京市' => 'https://bj.122.gov.cn',

@@ -342,4 +342,118 @@ class DrivingGov extends GovAbstract
         return $this->call($url, $data);
     }
 
+    /**
+     * 打印注册申请表
+     * @param $params
+     * User: renyuchong
+     * Date: 2019-12-30 11:11
+     * @throws GovException
+     * @return json
+     */
+    public function getRegisterPdf($params)
+    {
+        $url = $this->buildUrl() . GovConfig::PRE_REGISTER_PDF;
+
+        $data = [
+            'ksrqstart' => $params['start_date'],
+            'ksrqend' => $params['end_date']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-检查身份证
+     * @param $params
+     * User: renyuchong
+     * Date: 2019-12-30 16:51
+     * @return bool
+     * @throws GovException
+     */
+    public function getCheckIdCard($params)
+    {
+        $url = $this->buildUrl() . GovConfig::PRE_CHECK_ID_CARD;
+
+        $data = [
+            'ksrqstart' => $params['start_date'],
+            'ksrqend' => $params['end_date']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-保存受理信息
+     * @param $params
+     * User: renyuchong
+     * Date: 2019-12-30 17:11
+     * @return bool
+     * @throws GovException
+     */
+    public function savePreEntryInfo($params)
+    {
+        $url = $this->buildUrl() . GovConfig::SAVE_PRE_ENTRY_INFO;
+
+        $data = [
+            'ksrqstart' => $params['start_date'],
+            'ksrqend' => $params['end_date']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-获取行政区域码
+     * @param $params
+     * User: renyuchong
+     * Date: 2019-12-30 17:25
+     * @return bool
+     * @throws GovException
+     */
+    public function savePreAreaCode($params)
+    {
+        $url = $this->buildUrl() . GovConfig::PRE_AREA_CODE;
+
+        $data = [
+            'ksrqstart' => $params['start_date'],
+            'ksrqend' => $params['end_date']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-获取驾驶证申请表
+     * @param $params
+     * User: renyuchong
+     * Date: 2019-12-30 17:30
+     * @return bool
+     * @throws GovException
+     */
+    public function getPreDriverLicensePdf($params)
+    {
+        $url = $this->buildUrl() . GovConfig::PRE_DRIVER_LICENSE_PDF;
+
+        $data = [
+            'ksrqstart' => $params['start_date'],
+            'ksrqend' => $params['end_date']
+        ];
+        isset($params['subject']) && $data['kskm'] = $params['subject'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
 }
