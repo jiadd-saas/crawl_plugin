@@ -71,7 +71,6 @@ class Curl {
      */
     public function Start($url) {
         $this->ch_ = curl_init($url);
-//        curl_setopt($this->ch_, CURLOPT_HEADER, 1);
         curl_setopt($this->ch_, CURLOPT_RETURNTRANSFER, 1);
     }
 

@@ -71,28 +71,6 @@ class GovConfig
     //预录入-驾驶证申请表
     const PRE_DRIVER_LICENSE_PDF = '122API/sldrvpdf';
 
-    //122的身份登录地址
-    const URL_122 = [
-        '北京市' => 'https://bj.122.gov.cn',
-        '江西省' => 'https://jx.122.gov.cn',
-        '重庆市' => 'https://cq.122.gov.cn',
-        '四川省' => 'https://sc.122.gov.cn',
-        '广东省' => 'https://gd.122.gov.cn',
-        '山东省' => 'https://sd.122.gov.cn',
-        '河北省' => 'https://hb.122.gov.cn',
-        '湖南省' => 'https://hn.122.gov.cn',
-        '陕西省' => 'https://sn.122.gov.cn',
-        '福建省' => 'https://fj.122.gov.cn',
-        '安徽省' => 'https://ah.122.gov.cn',
-        '河南省' => 'https://ha.122.gov.cn',
-        '贵州省' => 'https://gz.122.gov.cn',
-        '江苏省' => 'https://js.122.gov.cn',
-        '山西省' => 'https://sx.122.gov.cn',
-        '云南省' => 'https://yn.122.gov.cn',
-        '甘肃省' => 'https://gs.122.gov.cn',
-        '海南省' => 'https://hi.122.gov.cn'
-    ];
-
     //获取验证码图片类型的固定值，目前是固定的。以后122换了，需要修改
     const CHECK_TYPE = 'xThbIYTTWUEbRysf';
 }
