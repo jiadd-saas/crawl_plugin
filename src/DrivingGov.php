@@ -366,7 +366,7 @@ class DrivingGov extends GovAbstract
     }
 
     /**
-     * 打印注册申请表
+     * 预录入-打印注册申请表
      * @param $params
      * User: renyuchong
      * Date: 2019-12-30 11:11
@@ -375,13 +375,11 @@ class DrivingGov extends GovAbstract
      */
     public function getRegisterPdf($params)
     {
-        $url = $this->buildUrl() . GovConfig::PRE_REGISTER_PDF;
+        $url = $this->buildUrl(GovConfig::PRE_REGISTER_PDF);
 
         $data = [
-            'ksrqstart' => $params['start_date'],
-            'ksrqend' => $params['end_date']
+            'wwlsh' => $params['network_serial_number'],
         ];
-        isset($params['subject']) && $data['kskm'] = $params['subject'];
 
         $postData = $this->buildParams($data);
 
@@ -398,13 +396,12 @@ class DrivingGov extends GovAbstract
      */
     public function getCheckIdCard($params)
     {
-        $url = $this->buildUrl() . GovConfig::PRE_CHECK_ID_CARD;
+        $url = $this->buildUrl(GovConfig::PRE_CHECK_ID_CARD);
 
         $data = [
-            'ksrqstart' => $params['start_date'],
-            'ksrqend' => $params['end_date']
+            'sfzmmc' => $params['papers_type'],
+            'sfzmhm' => $params['papers_number']
         ];
-        isset($params['subject']) && $data['kskm'] = $params['subject'];
 
         $postData = $this->buildParams($data);
 
@@ -424,10 +421,30 @@ class DrivingGov extends GovAbstract
         $url = $this->buildUrl() . GovConfig::SAVE_PRE_ENTRY_INFO;
 
         $data = [
-            'ksrqstart' => $params['start_date'],
-            'ksrqend' => $params['end_date']
+            'SFZMMC' => $params['card_type'],
+            'SFZMHM' => $params['card_number'],
+            'SJHM' => $params['phone'],
+            'XM' => $params['realname'],
+            'XB' => $params['sex'],
+            'CSRQ' => $params['birth_date'],
+            'MODAL' => $params['modal'],
+            'SFZC2' => $params['is_face_sign']
         ];
-        isset($params['subject']) && $data['kskm'] = $params['subject'];
+        isset($params['email']) && $data['DZYX'] = $params['email'];
+        isset($params['car_type']) && $data['ZKCX'] = $params['car_type'];
+        isset($params['residence_cert']) && $data['ZZZM'] = $params['residence_cert'];
+        isset($params['landline']) && $data['LXDH'] = $params['landline'];
+        isset($params['area_code']) && $data['XZQH'] = $params['area_code'];
+        isset($params['postal_code']) && $data['YZBM'] = $params['postal_code'];
+        isset($params['mail_address']) && $data['YJDZ'] = $params['mail_address'];
+        isset($params['source']) && $data['LY'] = $params['source'];
+        isset($params['contact_address']) && $data['LXZSXXDZ'] = $params['contact_address'];
+        isset($params['contact_area_code']) && $data['LXZSXZQH'] = $params['contact_area_code'];
+        isset($params['register_address']) && $data['DJZSXXDZ'] = $params['register_address'];
+        isset($params['register_area_code']) && $data['DJZSXZQH'] = $params['register_area_code'];
+        isset($params['country']) && $data['GJ'] = $params['country'];
+        isset($params['card_expire_date']) && $data['SFZYXQZ'] = $params['card_expire_date'];
+        isset($params['bs']) && $data['BS'] = $params['bs'];
 
         $postData = $this->buildParams($data);
 
@@ -447,10 +464,8 @@ class DrivingGov extends GovAbstract
         $url = $this->buildUrl() . GovConfig::PRE_AREA_CODE;
 
         $data = [
-            'ksrqstart' => $params['start_date'],
-            'ksrqend' => $params['end_date']
+            'ydxzqh' => $params['area_code'],
         ];
-        isset($params['subject']) && $data['kskm'] = $params['subject'];
 
         $postData = $this->buildParams($data);
 
@@ -470,10 +485,8 @@ class DrivingGov extends GovAbstract
         $url = $this->buildUrl() . GovConfig::PRE_DRIVER_LICENSE_PDF;
 
         $data = [
-            'ksrqstart' => $params['start_date'],
-            'ksrqend' => $params['end_date']
+            'wwlsh' => $params['network_serial_number'],
         ];
-        isset($params['subject']) && $data['kskm'] = $params['subject'];
 
         $postData = $this->buildParams($data);
 

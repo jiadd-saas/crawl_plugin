@@ -22,7 +22,7 @@ class Account
     {
         $this->username = $account['username'];
         $this->password = $account['password'];
-        $this->cert     = $account['cert'];
+        isset($account['cert']) && $this->cert = $account['cert'];
         $this->basicUrl = $account['basic_url'];
     }
 }

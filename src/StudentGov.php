@@ -15,17 +15,16 @@ class StudentGov extends GovAbstract
 {
     /**
      * DrivingGov constructor.
-     * @param string $url python请求地址
-     * @param string $account 账户
-     * @param string $password 密码
-     * @param string $province 省份 如：北京市、河北省，GovConfig::LOGIN_122_URL
+     * @param $account $url python请求地址
+     * @param $account $account 账户
+     * @param $account $password 密码
+     * @param $account $province 省份 如：北京市、河北省，GovConfig::LOGIN_122_URL
      */
-    public function __construct($url = '',$account = '', $password = '', $province = '')
+    public function __construct($url = '',$account = [])
     {
         $this->requestUrl = $url;
-        $this->account = $account;
-        $this->password = $password;
-        $this->province = $province;
+        $account && $this->account = new Account($account);
+        return $this;
     }
 
     /**
@@ -39,7 +38,7 @@ class StudentGov extends GovAbstract
     public function studentLogin($params)
     {
         //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::STUDENT_LOGIN;
+        $url = $this->buildUrl(GovConfig::STUDENT_LOGIN);
 
         $data = $this->studentLoginBuildParams([
             'student_name' => $params['student_name'],
@@ -66,7 +65,7 @@ class StudentGov extends GovAbstract
     public function autoLogin($params = [])
     {
         //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::AUTO_LOGIN;
+        $url = $this->buildUrl(GovConfig::AUTO_LOGIN);
 
         $data = $this->studentLoginBuildParams([
             'usertype' => 2,    //1驾校 2学员
@@ -107,7 +106,7 @@ class StudentGov extends GovAbstract
     public function getStudentExamScore($params = [])
     {
         //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::STUDENT_EXAM_SCORE;
+        $url = $this->buildUrl(GovConfig::STUDENT_EXAM_SCORE);
 
         $data = $this->studentBuildParams([]);
 
@@ -125,7 +124,7 @@ class StudentGov extends GovAbstract
     public function getStudentNetworkSpeed($params = [])
     {
         //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::STUDENT_NETWORK_SPEED;
+        $url = $this->buildUrl(GovConfig::STUDENT_NETWORK_SPEED);
 
         $data = [];
         isset($params['start_date']) && $data['startTime'] = $params['start_date'];
@@ -149,7 +148,7 @@ class StudentGov extends GovAbstract
     public function getStudentNetworkSpeedDetail($params = [])
     {
         //python服务器的地址
-        $url = $this->buildUrl() . GovConfig::STUDENT_NETWORK_SPEED_DETAIL;
+        $url = $this->buildUrl(GovConfig::STUDENT_NETWORK_SPEED_DETAIL);
 
         $data = $this->studentBuildParams([
             'wwlsh' => $params['network_serial_number'],
