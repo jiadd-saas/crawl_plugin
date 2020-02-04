@@ -24,6 +24,11 @@ abstract class GovAbstract
     protected $account;
 
     /**
+     * @var array
+     */
+    protected $observers = [];
+
+    /**
      * 登录公用的参数
      * @param $params
      * @return array
@@ -104,9 +109,43 @@ abstract class GovAbstract
         $curl   = new Curl();
         $json   = $curl->Post($url, $params, 'json');
         $result = json_decode($json, true);
+
+        $this->notify('after', [
+            'url'       => $url,
+            'params'    => $params,
+            'result'    => $result
+        ]);
+
         if( $result['result'] != 0 ){
             throw new GovException($result['message'], $result['result']);
         }
         return $json;
+    }
+
+    /**
+     * @author Haohuang
+     * @email  huanghao1054@gmail.com
+     * @param $observer
+     * @return $this
+     */
+    public function attach($observer)
+    {
+        $this->observers[] = $observer;
+        return $this;
+    }
+
+    /**
+     * @author Haohuang
+     * @email  huanghao1054@gmail.com
+     * @param $type
+     * @param array $params
+     */
+    protected function notify($type, $params = [])
+    {
+        foreach ( $this->observers as $observer ) {
+            if( $observer instanceof Observer ) {
+                call_user_func_array([$observer, $type], $params);
+            }
+        }
     }
 }
