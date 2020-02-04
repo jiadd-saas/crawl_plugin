@@ -77,27 +77,6 @@ class StudentGov extends GovAbstract
     }
 
     /**
-     * @param $url
-     * @param $params
-     * @return bool
-     * @throws GovException
-     * @throws \Exception
-     * @author: renyuchong
-     * Date: 2019-12-18
-     */
-    private function call($url, $params)
-    {
-        $curl   = new Curl();
-        $json   = $curl->Post($url, $params, 'json');
-        $result = json_decode($json, true);
-        if( $result['result'] != 0 ){
-            throw new GovException($result['message'], $result['result']);
-        }
-
-        return $json;
-    }
-
-    /**
      * 学员查询考试成绩
      * @param array $params
      * @return bool

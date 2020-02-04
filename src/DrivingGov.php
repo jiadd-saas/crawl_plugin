@@ -94,27 +94,6 @@ class DrivingGov extends GovAbstract
     }
 
     /**
-     * @param $url
-     * @param $params
-     * @return bool
-     * @throws GovException
-     * @author: renyuchong
-     * Date: 2019-12-18
-     */
-    private function call($url, $params)
-    {
-        $curl   = new Curl();
-        $json   = $curl->Post($url, $params, 'json');
-        $result = json_decode($json, true);
-
-        if( $result['result'] != 0 ){
-            throw new GovException($result['message'], $result['result']);
-        }
-
-        return $json;
-    }
-
-    /**
      * 同步考试计划-通过excel获取的信息
      * @param $params
      * @return mixed

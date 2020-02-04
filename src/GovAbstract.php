@@ -8,6 +8,9 @@
 
 namespace Gov;
 
+use Gov\Common\Curl;
+use Gov\Exception\GovException;
+
 abstract class GovAbstract
 {
     /**
@@ -86,5 +89,24 @@ abstract class GovAbstract
             'account'   => $this->account->username,
             'password'  => $this->account->password,
         ], $params);
+    }
+
+    /**
+     * @author Haohuang
+     * @email  huanghao1054@gmail.com
+     * @param $url
+     * @param $params
+     * @throws GovException
+     * @return bool
+     */
+    protected function call($url, $params)
+    {
+        $curl   = new Curl();
+        $json   = $curl->Post($url, $params, 'json');
+        $result = json_decode($json, true);
+        if( $result['result'] != 0 ){
+            throw new GovException($result['message'], $result['result']);
+        }
+        return $json;
     }
 }
