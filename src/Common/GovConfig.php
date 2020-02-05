@@ -71,6 +71,36 @@ class GovConfig
     //预录入-驾驶证申请表
     const PRE_DRIVER_LICENSE_PDF = '122API/sldrvpdf';
 
+    //预录入-获取注册申请表pdf
+    const PRE_REGISTER_PDF_OLD = '122API/slregpdf';
+
+    //预录入-上传受理照片
+    const PRE_UPLOAD_ACCEPT_IMAGE = '122API/slsaveimage';
+
+    //预录入-上传照片前获取加密密钥
+    const PRE_GET_UPLOAD_IMAGE_ENCRYPT_KEY = '122API/getencrypt';
+
+    //预录入-上传照片前setdecrypt
+    const PRE_SET_UPLOAD_IMAGE_DECRYPT_KEY = '122API/setdecrypt';
+
+    //预录入-获取驾照照片流水号
+    const PRE_GET_DRIVER_IMAGE_SERIAL_NUMBER = '122API/sldrvphotoflow';
+
+    //预录入-上传驾照照片
+    const PRE_UPLOAD_DRIVER_IMAGE = '122API/slsavedrvphoto';
+
+    //预录入-上传身份证电子照片
+    const PRE_UPLOAD_ID_CARD_IMAGE = '122API/slsaveidentityphoto';
+
+    //预录入-提交预录入受理
+    const PRE_SUBMIT_ENTRY_ACCEPT = '122API/slcommit';
+
+    //预录入-驾校受理查询接口
+    const PRE_DRIVER_INQUIRE_ACCEPT_INFO = '122API/slcx';
+
+    //预录入-生成个人用户注册seed接口
+    const PRE_CREATE_INDIVIDUAL_REGISTER_SEED = '122API/slgeneregseed';
+
     //获取验证码图片类型的固定值，目前是固定的。以后122换了，需要修改
     const CHECK_TYPE = 'xThbIYTTWUEbRysf';
 

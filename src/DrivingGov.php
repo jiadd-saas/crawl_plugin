@@ -397,13 +397,13 @@ class DrivingGov extends GovAbstract
      */
     public function savePreEntryInfo($params)
     {
-        $url = $this->buildUrl() . GovConfig::SAVE_PRE_ENTRY_INFO;
+        $url = $this->buildUrl(GovConfig::SAVE_PRE_ENTRY_INFO);
 
         $data = [
             'SFZMMC' => $params['card_type'],
             'SFZMHM' => $params['card_number'],
             'SJHM' => $params['phone'],
-            'XM' => $params['realname'],
+            'XM' => $params['real_name'],
             'XB' => $params['sex'],
             'CSRQ' => $params['birth_date'],
             'MODAL' => $params['modal'],
@@ -440,7 +440,7 @@ class DrivingGov extends GovAbstract
      */
     public function savePreAreaCode($params)
     {
-        $url = $this->buildUrl() . GovConfig::PRE_AREA_CODE;
+        $url = $this->buildUrl(GovConfig::PRE_AREA_CODE);
 
         $data = [
             'ydxzqh' => $params['area_code'],
@@ -461,7 +461,7 @@ class DrivingGov extends GovAbstract
      */
     public function getPreDriverLicensePdf($params)
     {
-        $url = $this->buildUrl() . GovConfig::PRE_DRIVER_LICENSE_PDF;
+        $url = $this->buildUrl(GovConfig::PRE_DRIVER_LICENSE_PDF);
 
         $data = [
             'wwlsh' => $params['network_serial_number'],
@@ -472,4 +472,254 @@ class DrivingGov extends GovAbstract
         return $this->call($url, $postData);
     }
 
+    /**
+     * 预录入-上传受理照片
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 15:47
+     * @return bool
+     * @throws GovException
+     */
+    public function uploadAcceptImage($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_UPLOAD_ACCEPT_IMAGE);
+
+        $data = [
+            'wwlsh' => $params['network_serial_number'],
+            'bz' => $params['image_type'],
+            'para1' => $params['para1'],
+            'para2' => $params['para2'],
+            'img_name' => $params['img_name'],  //trackdata
+            'submitted' => $params['submitted'],
+            'trackdata' => $params['trackdata'],
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-上传照片前获取加密密钥
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 15:54
+     * @return bool
+     * @throws GovException
+     */
+    public function getUploadImageEncryptKey($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_GET_UPLOAD_IMAGE_ENCRYPT_KEY);
+
+        $data = [];
+        isset($params['network_serial_number']) && $data['wwlsh'] = $params['network_serial_number'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-上传照片前进行setdecrypt
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 16:09
+     * @return bool
+     * @throws GovException
+     */
+    public function setUploadImageDecryptKey($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_SET_UPLOAD_IMAGE_DECRYPT_KEY);
+
+        $data = [
+            'rasdecrypt' => $params['rasdecrypt'],
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-旧的注册申请表
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 18:14
+     * @return bool
+     * @throws GovException
+     */
+    public function getRegisterPdfOld($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_REGISTER_PDF_OLD);
+
+        $data = [
+            'sfzmmc' => $params['card_type'],
+            'sfzmhm' => $params['card_number'],
+            'sjhm' => $params['phone'],
+            'xm' => $params['real_name'],
+            'xb' => $params['sex'],
+            'csrq' => $params['birth_date'],
+            'yzbm' => $params['postal_code'],
+            'yjdz' => $params['mail_address'],
+        ];
+        isset($params['email']) && $data['dzyx'] = $params['email'];
+        isset($params['province']) && $data['dqsf'] = $params['province'];
+        isset($params['city']) && $data['dqcs'] = $params['city'];
+        isset($params['area']) && $data['dqqh'] = $params['area'];
+        //暂时没有用到
+        isset($params['user_code']) && $data['yhdh'] = $params['user_code'];
+        isset($params['yhlx']) && $data['yhlx'] = $params['yhlx'];
+        isset($params['serial_number']) && $data['lsh'] = $params['serial_number'];
+        isset($params['ywlx']) && $data['ywlx'] = $params['ywlx'];
+        isset($params['license_plate']) && $data['fzjg'] = $params['license_plate'];    //车牌信息
+        isset($params['mm']) && $data['mm'] = $params['mm'];
+        isset($params['zt']) && $data['zt'] = $params['zt'];
+        isset($params['backUrl']) && $data['backUrl'] = $params['backUrl'];
+        isset($params['sfmq']) && $data['sfmq'] = $params['sfmq'];
+        isset($params['card_expire_date']) && $data['sfzyxqz'] = $params['card_expire_date'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-获取驾照照片流水号
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 18:18
+     * @return bool
+     * @throws GovException
+     */
+    public function getImageSerialNumber($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_GET_DRIVER_IMAGE_SERIAL_NUMBER);
+
+        $data = [
+            'sfzmhm' => $params['card_number'],
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-上传驾照照片
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-05 11:36
+     * @return bool
+     * @throws GovException
+     */
+    public function uploadDriverImage($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_UPLOAD_DRIVER_IMAGE);
+
+        $data = [
+            'wwlsh' => $params['network_serial_number'],
+            'fzjg' => $params['license_plate'],
+            'sfzmhm' => $params['card_number'],
+            'trackdata' => $params['trackdata'],
+            'img_name' => $params['img_name'],  //trackdata
+            'bz' => $params['bz'],  //test
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-上传身份证电子照片
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 18:48
+     * @return bool
+     * @throws GovException
+     */
+    public function uploadIdCardImage($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_UPLOAD_ID_CARD_IMAGE);
+
+        $data = [
+            'yhdh' => $params['card_number'],
+            'picture' => $params['picture'],
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-提交预录入受理
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 18:53
+     * @return bool
+     * @throws GovException
+     */
+    public function submitPreEntryAccept($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_SUBMIT_ENTRY_ACCEPT);
+
+        $data = [
+            'wwlsh' => $params['network_serial_number'],
+            'ly' => $params['source'],
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 预录入-驾校受理查询接口
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 19:04
+     * @return bool
+     * @throws GovException
+     */
+    public function driverInquireAcceptInfo($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_DRIVER_INQUIRE_ACCEPT_INFO);
+
+        $data = [
+            'gxrqstart' => $params['start_date'],
+            'gxrqend' => $params['end_date'],
+        ];
+        isset($params['input_person']) && $data['yhdh'] = $params['input_person'];
+        isset($params['car_sort']) && $data['zkcx'] = $params['car_sort'];
+        isset($params['business_type']) && $data['ywzt'] = $params['business_type'];
+        isset($params['real_name']) && $data['xm'] = $params['real_name'];
+        isset($params['card_type']) && $data['sfzmmc'] = $params['card_type'];
+        isset($params['card_number']) && $data['sfzmhm'] = $params['card_number'];
+        isset($params['page']) && $data['page'] = $params['page'];
+        isset($params['size']) && $data['size'] = $params['size'];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
+     * 生成个人用户注册seed接口
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-04 19:08
+     * @return bool
+     * @throws GovException
+     */
+    public function createIndividualRegisterSeed($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_CREATE_INDIVIDUAL_REGISTER_SEED);
+
+        $data = [];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
 }
