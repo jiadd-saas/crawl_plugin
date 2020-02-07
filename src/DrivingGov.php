@@ -443,7 +443,7 @@ class DrivingGov extends GovAbstract
         $url = $this->buildUrl(GovConfig::PRE_AREA_CODE);
 
         $data = [
-            'ydxzqh' => $params['area_code'],
+            'xzqhmc' => $params['area_code'],
         ];
 
         $postData = $this->buildParams($data);
@@ -668,6 +668,7 @@ class DrivingGov extends GovAbstract
             'wwlsh' => $params['network_serial_number'],
             'ly' => $params['source'],
         ];
+        isset($params['photo_network_serial_number']) && $data['zpwwlsh'] = $params['photo_network_serial_number'];
 
         $postData = $this->buildParams($data);
 
