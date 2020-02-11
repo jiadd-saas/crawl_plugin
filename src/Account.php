@@ -20,8 +20,8 @@ class Account
 
     public function __construct($account)
     {
-        $this->username = $account['username'];
-        $this->password = $account['password'];
+        isset($account['username']) && $this->username = $account['username'];
+        isset($account['password']) && $this->password = $account['password'];
         isset($account['cert']) && $this->cert = $account['cert'];
         $this->basicUrl = $account['basic_url'];
     }
