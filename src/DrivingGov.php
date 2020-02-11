@@ -388,6 +388,28 @@ class DrivingGov extends GovAbstract
     }
 
     /**
+     * 预录入-预录入身份证明流水检查
+     * @param $params
+     * User: renyuchong
+     * Date: 2020-02-11 10:42
+     * @return bool
+     * @throws GovException
+     */
+    public function getCheckIdCardFlow($params)
+    {
+        $url = $this->buildUrl(GovConfig::PRE_CHECK_ID_CARD_FLOW);
+
+        $data = [
+            'sfzmmc' => $params['papers_type'],
+            'sfzmhm' => $params['papers_number']
+        ];
+
+        $postData = $this->buildParams($data);
+
+        return $this->call($url, $postData);
+    }
+
+    /**
      * 预录入-保存受理信息
      * @param $params
      * User: renyuchong

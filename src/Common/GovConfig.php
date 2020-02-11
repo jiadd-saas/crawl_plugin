@@ -62,6 +62,9 @@ class GovConfig
     //预录入-检查身份证
     const PRE_CHECK_ID_CARD = '122API/slsfzmhm';
 
+    //预录入-检查身份证
+    const PRE_CHECK_ID_CARD_FLOW = '122API/slsfzmhm/flow';
+
     //预录入-保存受理信息
     const SAVE_PRE_ENTRY_INFO = '122API/slsavexx';
 
