@@ -10,14 +10,30 @@ namespace Gov;
 
 class Account
 {
+    /**
+     * @var string
+     */
     public $username;
 
+    /**
+     * @var string
+     */
     public $password;
 
+    /**
+     * @var string
+     */
     public $cert;
 
+    /**
+     * @var string
+     */
     public $basicUrl;
 
+    /**
+     * Account constructor.
+     * @param $account
+     */
     public function __construct($account)
     {
         isset($account['username']) && $this->username = $account['username'];

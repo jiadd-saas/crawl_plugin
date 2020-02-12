@@ -13,19 +13,6 @@ use Gov\Exception\GovException;
 
 class StudentGov extends GovAbstract
 {
-    /**
-     * DrivingGov constructor.
-     * @param $account $url python请求地址
-     * @param $account $account 账户
-     * @param $account $password 密码
-     * @param $account $province 省份 如：北京市、河北省，GovConfig::LOGIN_122_URL
-     */
-    public function __construct($url = '',$account = [])
-    {
-        $this->requestUrl = $url;
-        $account && $this->account = new Account($account);
-        return $this;
-    }
 
     /**
      * 学员登录
