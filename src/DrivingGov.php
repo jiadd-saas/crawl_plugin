@@ -709,10 +709,9 @@ class DrivingGov extends GovAbstract
     {
         $url = $this->buildUrl(GovConfig::PRE_DRIVER_INQUIRE_ACCEPT_INFO);
 
-        $data = [
-            'gxrqstart' => $params['start_date'],
-            'gxrqend' => $params['end_date'],
-        ];
+        $data = [];
+        isset($params['start_date']) && $data['gxrqstart'] = $params['start_date'];
+        isset($params['end_date']) && $data['gxrqend'] = $params['end_date'];
         isset($params['input_person']) && $data['yhdh'] = $params['input_person'];
         isset($params['car_sort']) && $data['zkcx'] = $params['car_sort'];
         isset($params['business_type']) && $data['ywzt'] = $params['business_type'];
