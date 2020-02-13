@@ -29,6 +29,19 @@ abstract class GovAbstract
     protected $observers = [];
 
     /**
+     * DrivingGov constructor.
+     * @param $url
+     * @param array $account
+     */
+    public function __construct($url, $account = [])
+    {
+        $this->requestUrl = $url;
+        if( $account ) {
+            $this->account = new Account($account);
+        }
+    }
+
+    /**
      * 登录公用的参数
      * @param $params
      * @return array
@@ -102,7 +115,7 @@ abstract class GovAbstract
      * @param $url
      * @param $params
      * @throws GovException
-     * @return bool
+     * @return string
      */
     protected function call($url, $params)
     {

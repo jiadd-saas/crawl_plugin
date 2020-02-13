@@ -15,18 +15,6 @@ class DrivingGov extends GovAbstract
 {
 
     /**
-     * DrivingGov constructor.
-     * @param $url
-     * @param array $account
-     */
-    public function __construct($url, $account = [])
-    {
-        $this->requestUrl = $url;
-        $account && $this->account = new Account($account);
-        return $this;
-    }
-
-    /**
      * @author Haohuang
      * @email  huanghao1054@gmail.com
      * @since   2020/1/7
@@ -98,6 +86,7 @@ class DrivingGov extends GovAbstract
      * @param $params
      * @return mixed
      * @throws \Exception
+     * @throws GovException
      * @author: renyuchong
      * Date: 2019-12-17
      */
@@ -175,6 +164,7 @@ class DrivingGov extends GovAbstract
      * @param array $params
      * @return mixed
      * @throws \Exception
+     * @throws GovException
      * @author: renyuchong
      * Date: 2019-12-17
      */
@@ -350,7 +340,7 @@ class DrivingGov extends GovAbstract
      * User: renyuchong
      * Date: 2019-12-30 11:11
      * @throws GovException
-     * @return json
+     * @return string
      */
     public function getRegisterPdf($params)
     {
