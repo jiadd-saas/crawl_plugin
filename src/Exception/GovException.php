@@ -6,7 +6,7 @@
  */
 
 
-namespace Gov\Exception;
+namespace Jiadd\Gov\Exception;
 
 
 class GovException extends \Exception

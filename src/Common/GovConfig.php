@@ -4,7 +4,7 @@
  * Date: 2019-12-16
  * @version 1.0
  */
-namespace Gov\Common;
+namespace Jiadd\Gov\Common;
 
 class GovConfig
 {

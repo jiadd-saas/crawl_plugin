@@ -5,11 +5,11 @@
  * @version 1.0
  */
 
-namespace Gov;
+namespace Jiadd\Gov;
 
-use Gov\Common\Curl;
-use Gov\Common\GovConfig;
-use Gov\Exception\GovException;
+use Jiadd\Gov\Common\Curl;
+use Jiadd\Gov\Common\GovConfig;
+use Jiadd\Gov\Exception\GovException;
 
 class DrivingGov extends GovAbstract
 {

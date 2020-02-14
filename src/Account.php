@@ -5,7 +5,7 @@
  * @since   2020/1/7
  */
 
-namespace Gov;
+namespace Jiadd\Gov;
 
 
 class Account

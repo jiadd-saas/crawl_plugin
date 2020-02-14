@@ -6,7 +6,7 @@
  * Time: 2:05 PM
  */
 
-namespace Gov;
+namespace Jiadd\Gov;
 
 
 abstract class Observer

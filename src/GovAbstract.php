@@ -6,10 +6,10 @@
  */
 
 
-namespace Gov;
+namespace Jiadd\Gov;
 
-use Gov\Common\Curl;
-use Gov\Exception\GovException;
+use Jiadd\Gov\Common\Curl;
+use Jiadd\Gov\Exception\GovException;
 
 abstract class GovAbstract
 {

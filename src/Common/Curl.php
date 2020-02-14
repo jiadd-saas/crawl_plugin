@@ -1,5 +1,5 @@
 <?php
-namespace Gov\Common;
+namespace Jiadd\Gov\Common;
 
 /**
  * @description: 封装CURL扩展
