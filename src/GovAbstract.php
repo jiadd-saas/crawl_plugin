@@ -21,7 +21,7 @@ abstract class GovAbstract
     /**
      * @var Account
      */
-    protected $account;
+    public $account;
 
     /**
      * @var array
