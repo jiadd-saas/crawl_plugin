@@ -503,7 +503,7 @@ class DrivingGov extends GovAbstract
             'para2' => $params['para2'],
             'img_name' => $params['img_name'],  //trackdata
             'submitted' => $params['submitted'],
-            'trackdata' => $params['trackdata'],
+            'img_path' => $params['img_path'],
         ];
 
         $postData = $this->buildParams($data);
@@ -632,7 +632,7 @@ class DrivingGov extends GovAbstract
             'wwlsh' => $params['network_serial_number'],
             'fzjg' => $params['license_plate'],
             'sfzmhm' => $params['card_number'],
-            'trackdata' => $params['trackdata'],
+            'img_path' => $params['img_path'],
             'img_name' => $params['img_name'],  //trackdata
             'bz' => $params['bz'],  //test
         ];
