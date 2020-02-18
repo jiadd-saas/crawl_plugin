@@ -117,10 +117,10 @@ abstract class GovAbstract
      * @throws GovException
      * @return string
      */
-    protected function call($url, $params)
+    protected function call($url, $params, $parType='json')
     {
         $curl   = new Curl();
-        $json   = $curl->Post($url, $params, 'json');
+        $json   = $curl->Post($url, $params, $parType);
         $result = json_decode($json, true);
 
         $this->notify('after', [

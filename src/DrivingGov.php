@@ -508,7 +508,7 @@ class DrivingGov extends GovAbstract
 
         $postData = $this->buildParams($data);
 
-        return $this->call($url, $postData);
+        return $this->call($url, $postData, 'post_img');
     }
 
     /**
@@ -639,7 +639,7 @@ class DrivingGov extends GovAbstract
 
         $postData = $this->buildParams($data);
 
-        return $this->call($url, $postData);
+        return $this->call($url, $postData, 'post_img');
     }
 
     /**
